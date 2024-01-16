@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "angular-bios": {
+      "hosting": {
+        "app": [
+          "angular-bios"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "angular-bios"
+  }
+}

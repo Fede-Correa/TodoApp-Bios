@@ -1,0 +1,65 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="signOut()">
+        <ion-icon name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Tareas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding background">
+  <app-home-header></app-home-header>
+  <br />
+  <br />
+  <ion-title>Lista de tareas</ion-title>
+  <ng-container *ngFor="let task of tasks">
+    <app-task-item [data]="task" (edit)="editTask($event)"></app-task-item>
+  </ng-container>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="setModalState(true)">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-modal [isOpen]="isModalOpen">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="end">
+            <ion-button (click)="setModalState(false)"><ion-icon name="arrow-forward-outline"></ion-icon></ion-button>
+          </ion-buttons>
+          <ion-title>Detalle</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding background">
+        <form [formGroup]="formulario">
+          <ion-item>
+            <ion-input formControlName="title" label="Título" labelPlacement="stacked"
+              placeholder="Ingesa el título"></ion-input>
+          </ion-item>
+          <br />
+          <ion-item>
+            <ion-textarea formControlName="description" label="Descripción" labelPlacement="stacked"
+              placeholder="Ingrese descripción"></ion-textarea>
+          </ion-item>
+          <br />
+          <ion-item>
+            <ion-input formControlName="date" type="date" label="Fecha" labelPlacement="stacked"
+              placeholder="Ingrese una fecha"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input formControlName="number" type="number" label="Orden de lista" labelPlacement="stacked"
+              placeholder="Ingrese el número"></ion-input>
+          </ion-item>
+          <br />
+          <ion-button expand="block" (click)="onSubmit()"
+            [disabled]="formulario.invalid || isLoading">Guardar</ion-button>
+        </form>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+  <ion-toast [isOpen]="isToastOpen" [message]="message" [duration]="5000" (didDismiss)="setOpen(false)"></ion-toast>
+</ion-content>

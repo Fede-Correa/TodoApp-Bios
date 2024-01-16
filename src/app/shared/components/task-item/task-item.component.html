@@ -1,0 +1,42 @@
+<ion-card>
+  <div class="header-item">
+    <p class="color-text font-standard mb-0">
+      {{ task?.date | date: 'hh:mm a' }}
+    </p>
+    <p class="color-text font-standard mb-0 text-secondary ml-2">
+      {{ task?.date | date: 'EEEE' }}
+    </p>
+  </div>
+  <ion-item-sliding>
+    <ion-item button lines="none">
+      <ion-label class="ml-3 my-4 ion-grid-padding">
+        <p class="color-tit">
+          {{ task?.title }}
+        </p>
+        <p class="m-0 text-secondary color-descrip">
+          {{ task?.description }}
+        </p>
+        <p class="color-text font-standard mb-0 text-secondary ml-2 center-text">
+          Posición  {{ task?.number }}
+        </p>
+      </ion-label>
+      <ion-checkbox #checkbox slot="end" mode="ios" color="success" [checked]="task?.completed"></ion-checkbox>
+    </ion-item>
+    <ion-item-options side="end">
+      <ion-item-option color="danger">
+        <ion-buttons>
+          <ion-button (click)="deleteTask(task.id)">
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-item-option>
+      <ion-item-option color="success">
+        <ion-buttons>
+          <ion-button color="light" (click)="editTask(task)">
+            <ion-icon slot="icon-only" name="pencil"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-item-option>
+    </ion-item-options>
+  </ion-item-sliding>
+</ion-card>
